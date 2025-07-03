@@ -1,0 +1,15 @@
+.hero-content .hero-tag {
+  background-color: #444;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 4px 6px 4px 0;
+  display: inline-block;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.hero-content .hero-tag:hover {
+  background-color: #666;
+}

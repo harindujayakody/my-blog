@@ -1,0 +1,60 @@
+<script src="/fuse.min.js"></script>
+<script>
+  async function initSearch() {
+    const res = await fetch("/index.json");
+    const data = await res.json();
+    const fuse = new Fuse(data, {
+      keys: ["title", "summary", "content"],
+      includeMatches: true,
+      threshold: 0.3,
+    });
+
+    const input = document.getElementById("heroSearchBox");
+    const results = document.getElementById("searchResults");
+
+    input.addEventListener("input", () => {
+      const query = input.value.trim();
+      results.innerHTML = "";
+      if (query.length < 2) return;
+
+      const matches = fuse.search(query).slice(0, 5);
+      matches.forEach(({ item }) => {
+        const link = document.createElement("a");
+        link.href = item.permalink;
+        link.textContent = item.title;
+        link.style.display = "block";
+        link.style.marginTop = "8px";
+        results.appendChild(link);
+      });
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", initSearch);
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("Theme toggle script running...");
+    const theme = localStorage.getItem("pref-theme");
+    console.log("Current stored theme:", theme);
+  });
+</script>
+
+<footer class="site-footer" style="margin-top: 4rem; padding: 2rem 1rem; text-align: center; font-size: 0.9rem; color: var(--secondary);">
+  <hr style="margin-bottom: 1.5rem; border: none; border-top: 1px solid var(--border);" />
+
+  <p style="margin: 0 0 1rem;">
+    Made with ❤️ by <strong>Infiax</strong> • Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank" rel="noopener">PaperMod</a>
+  </p>
+
+  <div style="margin-bottom: 0.5rem;">
+    {{ with site.Params.footerIcons }}
+      {{ range . }}
+        <a href="{{ .url }}" target="_blank" rel="noopener" style="margin: 0 10px; display: inline-block;" title="{{ .name }}">
+          {{ .svg | safeHTML }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+</footer>
+

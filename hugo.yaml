@@ -1,0 +1,94 @@
+baseURL: "https://harindujayakody.github.io/infiax-blog/"
+languageCode: "en-us"
+title: "Blog Infiax"
+theme:
+  - hugo-PaperMod
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - HTML
+    - JSON
+
+params:
+  mainSections:
+    - posts
+
+params:
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowSearch: true
+  ShowThemeToggle: true
+  ShowSearch: true
+
+  # ✅ Optional: Site description at top
+  homeInfoParams:
+    Title: "Tech Meets Agriculture 🌾💻"
+    Content: |
+      Seeds of Innovation 🌱💡 From Startups to Harvests. Your Hub for Technology and Agricultural Innovation.
+
+      <a href="/categories/webdev" style="margin-right: 10px;">#webdev</a>
+      <a href="/categories/hugo" style="margin-right: 10px;">#hugo</a>
+      <a href="/categories/papermod">#papermod</a>
+
+  # ✅ Fuse.js search config
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 100
+    threshold: 0.4
+    minMatchCharLength: 2
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 1
+
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 2
+
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 3
+
+    - identifier: tutorials
+      name: Tutorials
+      url: /categories/tutorials/
+      parent: categories
+      weight: 1
+
+    - identifier: news
+      name: News
+      url: /categories/news/
+      parent: categories
+      weight: 2
+
+    - identifier: agriculture
+      name: Agriculture
+      url: /categories/agriculture/
+      parent: categories
+      weight: 3
+
+    - identifier: contact
+      name: Contact Us
+      url: /contact/
+      weight: 4
+
+    - identifier: search
+      name: 🔍
+      url: /search/
+      weight: 10
+      
+
+      
