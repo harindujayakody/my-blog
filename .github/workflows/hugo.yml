@@ -87,3 +87,8 @@ menu:
       name: 🔍
       url: /search/
       weight: 10
+      
+      on:
+        push:
+          branches: ["main"]
+        workflow_dispatch:
