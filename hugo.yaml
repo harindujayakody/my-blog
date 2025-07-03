@@ -1,8 +1,11 @@
 baseURL: "https://harindujayakody.github.io/my-blog/"
+canonifyURLs = true
+relativeURLs = false
 languageCode: "en-us"
 title: "Blog Infiax"
 theme:
   - PaperMod
+  
 
 markup:
   goldmark:
