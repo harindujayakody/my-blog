@@ -2,7 +2,7 @@ baseURL: "https://github.com/harindujayakody/my-blog/"
 languageCode: "en-us"
 title: "Blog Infiax"
 theme:
-  - hugo-PaperMod
+  - PaperMod
 
 markup:
   goldmark:
