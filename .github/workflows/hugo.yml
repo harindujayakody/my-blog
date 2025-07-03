@@ -1,59 +1,89 @@
-name: Deploy Hugo site to Pages
+baseURL: "https://harindujayakody.github.io/my-blog/"
+canonifyURLs: true
+relativeURLs: false
+languageCode: "en-us"
+title: "Blog Infiax"
+theme: "PaperMod"
 
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+outputs:
+  home:
+    - HTML
+    - JSON
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+params:
+  mainSections:
+    - posts
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowSearch: true
+  ShowThemeToggle: true
 
-defaults:
-  run:
-    shell: bash
+  # Site description at top
+  homeInfoParams:
+    Title: "Tech Meets Agriculture 🌾💻"
+    Content: |
+      Seeds of Innovation 🌱💡 From Startups to Harvests. Your Hub for Technology and Agricultural Innovation.
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          extended: true
-      
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-      
-      - name: Build with Hugo
-        run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "https://harindujayakody.github.io/my-blog/"
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+      <a href="/categories/webdev" style="margin-right: 10px;">#webdev</a>
+      <a href="/categories/hugo" style="margin-right: 10px;">#hugo</a>
+      <a href="/categories/papermod">#papermod</a>
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deploy
-        uses: actions/deploy-pages@v4
+  # Fuse.js search config
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 100
+    threshold: 0.4
+    minMatchCharLength: 2
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 1
+
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 2
+
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 3
+
+    - identifier: tutorials
+      name: Tutorials
+      url: /categories/tutorials/
+      parent: categories
+      weight: 1
+
+    - identifier: news
+      name: News
+      url: /categories/news/
+      parent: categories
+      weight: 2
+
+    - identifier: agriculture
+      name: Agriculture
+      url: /categories/agriculture/
+      parent: categories
+      weight: 3
+
+    - identifier: contact
+      name: Contact Us
+      url: /contact/
+      weight: 4
+
+    - identifier: search
+      name: 🔍
+      url: /search/
+      weight: 10
